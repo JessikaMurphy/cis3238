@@ -1,5 +1,10 @@
 package paystation.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
 /**
  * Implementation of the pay station.
  *
@@ -20,6 +25,10 @@ package paystation.domain;
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
 public class PayStationImpl implements PayStation {
+    
+    
+    private int totalCollected;
+    private HashMap map = new HashMap();
     
     private int insertedSoFar;
     private int timeBought;
@@ -49,10 +58,22 @@ public class PayStationImpl implements PayStation {
         reset();
         return r;
     }
-
+    
+    
+    
     @Override
-    public void cancel() {
+    public HashMap<Integer,Integer> cancel(){
+        HashMap m = (HashMap)map.clone();
+        m.putAll(map);
+        
+        
         reset();
+        return m;
+    }
+    public int empty(){
+        int r = totalCollected;
+        totalCollected = 0;
+        return r;
     }
     
     private void reset() {

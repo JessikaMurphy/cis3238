@@ -11,13 +11,15 @@
  */
 package paystation.domain;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class PayStationImplTest {
 
-    PayStation ps;
+    PayStationImpl ps;
 
     @Before
     public void setup() {
@@ -138,4 +140,25 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+    
+     /**
+     * Verify that a call to empty returns the total amount entered
+     */
+    
+    @Test
+    public void shouldNotAddCanceledEntry()
+            throws IllegalCoinException{
+        int i = ps.empty();
+        
+        ps.addPayment(10);
+        ps.cancel();
+        
+        i = ps.empty();
+        
+        assertEquals("Should equal 0", i, 0);
+    }
+    
+    
+    
+    
 }
